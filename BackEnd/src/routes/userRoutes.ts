@@ -3,7 +3,7 @@ import { createUserController } from "../controllers/Users/createUserController"
 import {AuthUserController} from '../controllers/Users/authUserController'
 import { detailUserController } from "../controllers/Users/detailUserController";
 import { isAuthenticated } from "../middlewares/auth/isAuthenticated";
-import isvalidEmail from "../middlewares/utils/isValidEmail";
+import {isvalidEmail} from "../middlewares/utils/validation";
 
 const userRoutes = Router();
 

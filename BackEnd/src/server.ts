@@ -1,15 +1,15 @@
-import 'express-async-errors'; // Importa o pacote para lidar com erros assíncronos
+import 'express-async-errors'; 
 import express, { NextFunction, Request, Response } from "express";
-import { router } from "./routes"; // Importa o arquivo de rotas
-import cors from 'cors'; // Importa o pacote de middleware CORS
+import { mainRouter } from "./routes"; 
+import cors from 'cors'; 
 
-const app = express(); // Cria uma nova instância do Express
+const app = express();
 
-app.use(express.json()); // Habilita o middleware para análise de corpos de requisição no formato JSON
-app.use(cors()); // Habilita o middleware CORS para permitir requisições entre diferentes origens
-app.use(router); // Utiliza as rotas definidas no arquivo de rotas
+app.use(express.json());
+app.use(cors()); 
+app.use(mainRouter); 
 
-// Middleware para tratamento de erros
+
 app.use((erro: Error, request: Request, response: Response, next: NextFunction) => {
     if (erro instanceof Error) {
         return response.status(400).json({
@@ -24,5 +24,5 @@ app.use((erro: Error, request: Request, response: Response, next: NextFunction) 
 });
 
 app.listen(3333, () => {
-    console.log('server on !!'); // Inicia o servidor na porta 3333 e imprime uma mensagem no console
+    console.log('server on !!'); 
 });
