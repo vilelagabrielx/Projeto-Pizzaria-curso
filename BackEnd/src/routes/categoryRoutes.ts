@@ -1,26 +1,17 @@
 import { Router, Request, Response } from "express";
-import { CreateCategoryController } from "../controllers/Category/CreateCategoryController";
-import { ListCategoryController } from "../controllers/Category/ListCategoryController";
+import { CreateCategoryController } from "../controllers/Categories/CreateCategoryController";
+import { ListCategoryController } from "../controllers/Categories/ListCategoryController";
 import { isAuthenticated } from "../middlewares/auth/isAuthenticated";
 import { validateEmptyParams } from '../middlewares/utils/validation';
+import { EditCategoryController } from "../controllers/Categories/EditCategoryController";
 
 const categoryRoutes = Router();
 
-categoryRoutes.post("/category", validateEmptyParams(['name']), isAuthenticated, (req: Request, res: Response) => {
-  try {
-    new CreateCategoryController().handle(req, res);
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
+categoryRoutes.post("/category", isAuthenticated,validateEmptyParams(['name']),new CreateCategoryController().handle)
 
-categoryRoutes.get("/category", isAuthenticated, (req: Request, res: Response) => {
-  try {
-    new ListCategoryController().handle(req, res);
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-});
+categoryRoutes.put("/category",isAuthenticated, validateEmptyParams(['id','id_category','name']), new EditCategoryController().handle);
+
+categoryRoutes.get("/category", isAuthenticated,new ListCategoryController().handle);
 
 
 export { categoryRoutes };

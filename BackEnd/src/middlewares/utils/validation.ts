@@ -14,6 +14,7 @@ export const isvalidEmail = [
 
 
 export const validateEmptyParams = (fields: string[]) => {
+
   return [
     body(fields).custom((value, { req }) => {
       if (Array.isArray(value)) {

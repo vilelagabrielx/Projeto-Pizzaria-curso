@@ -6,10 +6,11 @@ import cors from 'cors';
 const app = express();
 
 app.use(express.json());
+
 app.use(cors()); 
+
 app.use(mainRouter); 
-
-
+// Middleware para tratamento de erros
 app.use((erro: Error, request: Request, response: Response, next: NextFunction) => {
     if (erro instanceof Error) {
         return response.status(400).json({
@@ -24,5 +25,5 @@ app.use((erro: Error, request: Request, response: Response, next: NextFunction) 
 });
 
 app.listen(3333, () => {
-    console.log('server on !!'); 
+    console.log('server on !!'); // Inicia o servidor na porta 3333 e imprime uma mensagem no console
 });

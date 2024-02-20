@@ -14,7 +14,7 @@ export function isAuthenticated(
     const authtoken = request.headers.authorization;
 
     const id = request.body.id;
-
+    
     if (!authtoken){
         return response.status(401).end()      
     }
