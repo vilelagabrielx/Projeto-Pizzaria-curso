@@ -4,7 +4,7 @@ import { isAuthenticated } from "../auth/isAuthenticated";
 
 const upload = multer(uploadConfig.upload("../temp"));
 
-export function processFormData(req, res, next,bodyName) {
+function processFormData(req, res, next,bodyName) {
   upload.single(bodyName)(req, res, err => {
     isAuthenticated(req, res, next);
     if (err instanceof multer.MulterError) {
@@ -14,4 +14,8 @@ export function processFormData(req, res, next,bodyName) {
     }
     next();
   });
+}
+
+export const processFormDataBanner = (bodyName) => (req, res, next) => {
+  processFormData(req, res, next, bodyName);
 }

@@ -3,13 +3,11 @@ import multer from "multer";
 import { isAuthenticated } from "../middlewares/auth/isAuthenticated";
 import { validateEmptyParams } from '../middlewares/utils/validation';
 import { CreateProductController } from "../controllers/Products/CreateProductController";
-import { processFormData } from "../middlewares/files/upload";
+import { processFormDataBanner } from "../middlewares/files/upload";
 
 const productRoutes = Router();
 
-const processFormDataBanner = (bodyName) => (req, res, next) => {
-    processFormData(req, res, next, bodyName);
-  }
+
   
 // Middleware para processar o corpo das requisições do tipo multipart/form-data
 
