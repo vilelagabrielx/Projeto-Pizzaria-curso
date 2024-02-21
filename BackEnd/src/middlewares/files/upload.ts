@@ -1,20 +1,17 @@
 import multer from "multer";
-import uploadConfig from '../../config/multer';
-import { isAuthenticated } from "../auth/isAuthenticated";
+import path from "path";
 
-function processFormData(req, res, next, bodyName, upload) {
-  upload.single(bodyName)(req, res, err => {
-    isAuthenticated(req, res, next);
-    if (err instanceof multer.MulterError) {
-      return res.status(400).json({ error: err.message });
-    } else if (err) {
-      return res.status(500).json({ error: err.message });
+const uploadToFolder = (folderName: string) => {
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join('../temp', folderName)); // substitua 'caminho/raiz' pelo diretório raiz onde as pastas serão criadas
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-    next();
   });
-}
 
-export const processFormDataProducts = (bodyName) => (req, res, next) => {
-  const upload = multer(uploadConfig.upload("../temp/products"));
-  processFormData(req, res, next, bodyName, upload);
-}
+  return multer({ storage: storage });
+};
+
+export { uploadToFolder };

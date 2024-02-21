@@ -8,9 +8,11 @@ interface ProductRequest {
 }
 class CreateProductService {
     async execute({ name, price, description, category_id }: ProductRequest) {
-        return {
-            ok:"true"
-        }
+
+        const product = await prismaClient.product.findFirst()
+        
+        return product
+        
        
     }
 }

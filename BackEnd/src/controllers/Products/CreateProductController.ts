@@ -3,7 +3,7 @@ import { CreateProductService } from "../../services/Products/CreateProductServi
 
 class CreateProductController {
     async handle(request: Request, response: Response) {
-
+      
         if(!request.file){
           throw new Error("error uploading file")
         }
